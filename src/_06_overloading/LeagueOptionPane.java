@@ -16,6 +16,7 @@ import javax.swing.JPanel;
  * GOAL: Create your own custom pop-up messages
  */
 public class LeagueOptionPane {
+	static JFrame frame = new JFrame();
 	
 	public static void showMessageDialog(String message) {
 		// 1. Open example.png and make a GUI that looks like that
@@ -23,7 +24,7 @@ public class LeagueOptionPane {
 		
 		
 		// 2. Uncomment the line of code below. It sets the location of our frame to the center of the screen
-		//frame.setLocationRelativeTo(null);
+		frame.setLocationRelativeTo(null);
 	}
 	
 	// 3. Call this method in the Runner class
@@ -31,13 +32,17 @@ public class LeagueOptionPane {
 
 	// 4. Create another showMessageDialog() method that lets us also choose the Message and Title 
 	//    2 String parameters (one for the message and one for the title)
-	
+	public static void showMessageDialog(String Message, String Title) {
+		
+	}
 	// 5. Call this method in the Runner class
 	
 	
 	// 6. Create another showMessageDialog() method that lets us choose the Message, Title, and Image
 	//    3 String parameters (one for the message, one for the title, and one for the fileName)
-	
+	public static void showMessageDialog(String Message, String Title, String Image) {
+		
+	}
 	// 7. Call this method in the Runner class
 	
 	// CHALLENGE: 
