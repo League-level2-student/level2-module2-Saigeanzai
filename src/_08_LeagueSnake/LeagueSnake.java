@@ -1,13 +1,20 @@
 package _08_LeagueSnake;
 
 import java.awt.Color;
+import java.awt.GridLayout;
 import java.util.Random;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import processing.core.PApplet;
 
 public class LeagueSnake extends PApplet {
     static final int WIDTH = 800;
     static final int HEIGHT = 800;
+    JPanel gamePanel = new JPanel();
+	JFrame frame = new JFrame();
     
     /*
      * Game variables
@@ -26,7 +33,7 @@ int foodY;
      */
     @Override
     public void settings() {
-        size(500,500);
+        frame.setSize(500,500);
     }
 
     @Override
@@ -34,6 +41,12 @@ int foodY;
         Segment newSegment;
         frameRate(20);
         dropFood();
+        
+        gamePanel.setLayout( new GridLayout(500,500));
+        frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.add(gamePanel);
+		
     }
 
     void dropFood() {
@@ -52,14 +65,23 @@ int foodY;
 
     @Override
     public void draw() {
-        //frame.setBackground(Color.black);
+       // frame.setBackground(Color.black);
         drawFood();
         drawSnake();
     }
 
     void drawFood() {
         // Draw the food
-        
+    	for (int i=0; i<2500; i++) {
+    		JLabel temp = new JLabel();
+    		temp.setText(String.valueOf(i));
+    		if (i==foodX && i==foodY) {
+    			temp.setBackground(Color.green);
+    		}
+    		else {
+    			temp.setBackground(Color.black);
+    		}
+    	}
     }
 
     void drawSnake() {
