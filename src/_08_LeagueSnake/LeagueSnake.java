@@ -2,6 +2,7 @@ package _08_LeagueSnake;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.KeyEvent;
 import java.util.Random;
 
 import javax.swing.JFrame;
@@ -13,18 +14,19 @@ import processing.core.PApplet;
 public class LeagueSnake extends PApplet {
     static final int WIDTH = 800;
     static final int HEIGHT = 800;
-    JPanel gamePanel = new JPanel();
-	JFrame frame = new JFrame();
-    
+
     /*
      * Game variables
      * 
      * Put all the game variables here.
      */
-    
+int snakeX =250;
+int snakeY =450;
 int Segment;
 int foodX;
 int foodY;
+int snakeDirection = UP;
+int foodEaten = 0;
     
     /*
      * Setup methods
@@ -33,7 +35,8 @@ int foodY;
      */
     @Override
     public void settings() {
-        frame.setSize(500,500);
+        setSize(500,500);
+       
     }
 
     @Override
@@ -42,10 +45,7 @@ int foodY;
         frameRate(20);
         dropFood();
         
-        gamePanel.setLayout( new GridLayout(500,500));
-        frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.add(gamePanel);
+      
 		
     }
 
@@ -66,26 +66,22 @@ int foodY;
     @Override
     public void draw() {
        // frame.setBackground(Color.black);
+        background(0, 0, 0);
         drawFood();
         drawSnake();
     }
 
     void drawFood() {
         // Draw the food
-    	for (int i=0; i<2500; i++) {
-    		JLabel temp = new JLabel();
-    		temp.setText(String.valueOf(i));
-    		if (i==foodX && i==foodY) {
-    			temp.setBackground(Color.green);
-    		}
-    		else {
-    			temp.setBackground(Color.black);
-    		}
-    	}
+    	fill(46, 184, 62);
+    	rect(foodX, foodY, 10, 10);
     }
 
     void drawSnake() {
         // Draw the head of the snake followed by its tail
+    	Segment snakeHead = new Segment(10,10);
+    	fill(191, 61, 21);
+    	rect(snakeX, snakeY, 10, 10);
     }
 
     void drawTail() {
@@ -120,30 +116,56 @@ int foodY;
     @Override
     public void keyPressed() {
         // Set the direction of the snake according to the arrow keys pressed
-        
+    	if (key == CODED) {
+    	    if (key == KeyEvent.VK_UP) {
+    	        snakeY --;
+    	    }
+    	    if (key == KeyEvent.VK_DOWN) {
+    	    	snakeY ++;
+    	    }
+    	    if (key == KeyEvent.VK_KP_RIGHT) {
+    	    	snakeX --;
+    	    }
+    	    if (key == KeyEvent.VK_KP_LEFT) {
+    	    	snakeY ++;
+    	    }
+    	}
     }
 
     void move() {
         // Change the location of the Snake head based on the direction it is moving.
 
-        /*
-        if (direction == UP) {
-            // Move head up
+        
+        if (snakeDirection == UP) {
+            snakeY --;
             
-        } else if (direction == DOWN) {
-            // Move head down
+        } else if (snakeDirection == DOWN) {
+            snakeY ++;
                 
-        } else if (direction == LEFT) {
+        } else if (snakeDirection == LEFT) {
+        	snakeX --;
             
-        } else if (direction == RIGHT) {
+        } else if (snakeDirection == RIGHT) {
+        	snakeX ++;
             
         }
-        */
+        
     }
 
     void checkBoundaries() {
         // If the snake leaves the frame, make it reappear on the other side
-        
+        if (snakeX==500) {
+        	snakeX=1;
+        }
+        else if (snakeX==0) {
+        	snakeX=499;
+        }
+       if (snakeY==500) {
+    	   snakeY=1;
+       }
+       else if (snakeY==0) {
+    	   snakeY=499;
+       }
     }
 
     void eat() {
