@@ -27,7 +27,10 @@ int foodX;
 int foodY;
 int snakeDirection = UP;
 int foodEaten = 0;
+boolean hasFood = false;
     
+Random rand = new Random();
+Random ran = new Random();
     /*
      * Setup methods
      * 
@@ -51,8 +54,7 @@ int foodEaten = 0;
 
     void dropFood() {
         // Set the food in a new random location
-    	Random rand = new Random();
-    	Random ran = new Random();
+    	
    foodX = rand.nextInt(500);
    foodY = ran.nextInt(500);
     }
@@ -69,10 +71,13 @@ int foodEaten = 0;
         background(0, 0, 0);
         drawFood();
         drawSnake();
+        eat();
+        
     }
 
     void drawFood() {
         // Draw the food
+    	//dropFood();
     	fill(46, 184, 62);
     	rect(foodX, foodY, 10, 10);
     }
@@ -117,18 +122,19 @@ int foodEaten = 0;
     public void keyPressed() {
         // Set the direction of the snake according to the arrow keys pressed
     	if (key == CODED) {
-    	    if (key == KeyEvent.VK_UP) {
-    	        snakeY --;
+    	    if (keyCode == KeyEvent.VK_UP) {
+    	        snakeY -=4;
     	    }
-    	    if (key == KeyEvent.VK_DOWN) {
-    	    	snakeY ++;
+    	    if (keyCode == KeyEvent.VK_DOWN) {
+    	    	snakeY +=4;
     	    }
-    	    if (key == KeyEvent.VK_KP_RIGHT) {
-    	    	snakeX --;
+    	    if (keyCode == KeyEvent.VK_RIGHT) {
+    	    	snakeX +=4;
     	    }
-    	    if (key == KeyEvent.VK_KP_LEFT) {
-    	    	snakeY ++;
+    	    if (keyCode == KeyEvent.VK_LEFT) {
+    	    	snakeX -=4;
     	    }
+    	    
     	}
     }
 
@@ -171,7 +177,16 @@ int foodEaten = 0;
     void eat() {
         // When the snake eats the food, its tail should grow and more
         // food appear
-        
+        if (snakeY>=foodY-1 && snakeY<=foodY+1 && snakeX>=foodX-1 && snakeX<=foodX+1) {
+        	System.out.println(snakeY);
+        	System.out.println(snakeX);
+        	System.out.println(foodY);
+        	System.out.println(foodY);
+        	//dropFood();
+        	foodX = rand.nextInt(500);
+        	foodY = ran.nextInt(500);
+        	   foodEaten ++;
+        }
     }
 
     static public void main(String[] passedArgs) {
